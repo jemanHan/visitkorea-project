@@ -8,6 +8,9 @@ WORKDIR /app
 COPY package*.json ./
 COPY tsconfig.base.json ./
 
+# packages 디렉토리 복사 (shared-types 등 의존성 패키지)
+COPY packages/ ./packages/
+
 # 백엔드 패키지 파일 복사
 COPY apps/backend/package*.json ./
 
