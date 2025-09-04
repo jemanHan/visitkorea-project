@@ -5,41 +5,41 @@ yarn-debug.log*
 yarn-error.log*
 
 # Build outputs
-dist/
-build/
-*.tsbuildinfo
+# dist/
+# build/
+# *.tsbuildinfo
 
 # Environment variables
-.env
-.env.production
+# .env
+# .env.production
 # .env.local and .env.docker files are now committed for team convenience
 
 # Logs
-logs/
-*.log
+# logs/
+# *.log
 
 # Runtime data
-pids/
-*.pid
-*.seed
-*.pid.lock
+# pids/
+# *.pid
+# *.seed
+# *.pid.lock
 
 # Coverage directory used by tools like istanbul
-coverage/
+# coverage/
 
 # IDE
-.vscode/
-.idea/
-*.swp
-*.swo
+# .vscode/
+# .idea/
+# *.swp
+# *.swo
 
 # OS
-.DS_Store
-Thumbs.db
+# .DS_Store
+# Thumbs.db
 
 # Docker
-.dockerignore
+# .dockerignore
 
 # Temporary files
-tmp/
-temp/
+# tmp/
+# temp/
