@@ -17,9 +17,6 @@ RUN npm install
 # 소스 코드 복사
 COPY apps/backend/ .
 
-# TypeScript 빌드
-RUN npm run build
-
 # 포트 노출
 EXPOSE 3002
 
@@ -27,5 +24,5 @@ EXPOSE 3002
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
   CMD curl -f http://localhost:3002/health || exit 1
 
-# 애플리케이션 실행
-CMD ["npm", "start"]
+# 애플리케이션 실행 (개발 모드)
+CMD ["npm", "run", "dev"]
