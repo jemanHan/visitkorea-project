@@ -12,8 +12,7 @@ build/
 # Environment variables
 .env
 .env.production
-config/.env.docker
-# .env.local files are now committed for team convenience
+# .env.local and .env.docker files are now committed for team convenience
 
 # Logs
 logs/
