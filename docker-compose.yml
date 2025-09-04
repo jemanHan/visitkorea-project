@@ -1,0 +1,74 @@
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15
+    container_name: vk-postgres-${USER:-default}
+    environment:
+      POSTGRES_DB: vk
+      POSTGRES_USER: vk
+      POSTGRES_PASSWORD: vk
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U vk -d vk"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    networks:
+      - visitkorea-network
+
+    # Backend API Server
+  backend:
+    build:
+      context: .
+      dockerfile: apps/backend/Dockerfile
+    container_name: vk-backend-${USER:-default}
+    ports:
+      - "3002:3002"
+    env_file:
+      - ./config/.env.docker
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgresql://vk:vk@postgres:5432/vk?schema=public
+      - PORT=3002
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./apps/backend:/app
+      - /app/node_modules
+    networks:
+      - visitkorea-network
+    restart: unless-stopped
+
+    # Prisma Studio (개발용)
+  prisma-studio:
+    build:
+      context: .
+      dockerfile: apps/backend/Dockerfile
+    container_name: vk-prisma-studio-${USER:-default}
+    ports:
+      - "5555:5555"
+    env_file:
+      - ./config/.env.docker
+    environment:
+      - DATABASE_URL=postgresql://vk:vk@postgres:5432/vk?schema=public
+    depends_on:
+      postgres:
+        condition: service_healthy
+    command: npx prisma studio --schema=../../packages/db/prisma/schema.prisma --hostname 0.0.0.0
+    networks:
+      - visitkorea-network
+    profiles:
+      - dev  # 개발 시에만 실행
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  visitkorea-network:
+    driver: bridge
