@@ -17,6 +17,9 @@ COPY apps/backend/package*.json ./
 # 의존성 설치 (개발 의존성 포함)
 RUN npm install
 
+# Prisma 클라이언트 생성 (필수!)
+RUN npx prisma generate --schema packages/db/prisma/schema.prisma
+
 # 소스 코드 복사
 COPY apps/backend/ .
 
