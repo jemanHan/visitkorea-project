@@ -42,8 +42,6 @@ services:
     volumes:
       - ./apps/backend:/app
       - /app/node_modules
-    command: npm run dev
-    working_dir: /app
     networks:
       - visitkorea-network
 
