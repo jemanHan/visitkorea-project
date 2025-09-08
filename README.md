@@ -51,8 +51,26 @@ docker compose --profile dev up -d prisma-studio
 ### **❓ 문제가 생기면**
 - **포트 충돌**: `docker compose down` 후 재시작
 - **Prisma 오류**: `docker compose run --rm backend npx prisma generate` 실행
+- **Prisma Studio 환경변수 오류**: 아래 "로컬 실행 방법" 참고
 - **기존 Docker 정리**: [docs/DOCKER_CLEANUP_GUIDE.md](docs/DOCKER_CLEANUP_GUIDE.md) 참고
 - **자세한 가이드**: [docs/README.md](docs/README.md) 참고
+
+### **🔧 로컬에서 직접 실행하는 방법 (Docker 없이)**
+
+```bash
+# 1. 환경변수 설정
+export DATABASE_URL="postgresql://vk:vk@localhost:5432/vk?schema=public"
+
+# 2. Prisma Studio 시작
+cd apps/backend
+npx prisma studio --schema=../../packages/db/prisma/schema.prisma
+
+# 3. 백엔드 서버 시작 (별도 터미널)
+cd apps/backend
+npm run dev
+```
+
+**주의**: 로컬 PostgreSQL이 실행 중이어야 합니다.
 
 ---
 

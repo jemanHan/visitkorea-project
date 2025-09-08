@@ -378,6 +378,29 @@ npm run dev:docker
 
 ---
 
+## 🔧 Prisma Studio 환경변수 오류 해결
+
+### **오류**: `Environment variable not found: DATABASE_URL`
+
+**해결방법**:
+```bash
+# 1. 환경변수 설정
+export DATABASE_URL="postgresql://vk:vk@localhost:5432/vk?schema=public"
+
+# 2. Prisma Studio 시작
+cd apps/backend
+npx prisma studio --schema=../../packages/db/prisma/schema.prisma
+```
+
+**또는 .env.local 파일 사용**:
+```bash
+# apps/backend/.env.local 파일이 있으면 자동으로 로드됨
+cd apps/backend
+npx prisma studio --schema=../../packages/db/prisma/schema.prisma
+```
+
+---
+
 ## 📞 지원
 
 문제가 발생하면 다음 순서로 확인하세요:
@@ -386,6 +409,7 @@ npm run dev:docker
 2. **로그 확인**: `npm run logs:docker`
 3. **환경변수**: `cat apps/backend/.env.local`
 4. **네트워크**: `curl http://localhost:3002/health`
+5. **Prisma 환경변수**: `echo $DATABASE_URL`
 
 ---
 
