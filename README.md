@@ -8,7 +8,7 @@
 git clone https://github.com/jemanHan/visitkorea-project-was.git
 cd visitkorea-project-was
 npm install
-powershell -ExecutionPolicy Bypass -File scripts/setup-docker.ps1
+powershell -ExecutionPolicy Bypass -File ./scripts/start-dev.ps1
 ```
 
 **Linux/Mac:**
