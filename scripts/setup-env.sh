@@ -27,8 +27,12 @@ JWT_SECRET="your_jwt_secret_here"
 
 # CORS
 CORS_ORIGIN="http://localhost:3000"
+
+# Cache TTL (7 days)
+DETAIL_TTL_MS=604800000
 EOF
 
 echo "✅ 환경변수 파일이 생성되었습니다: $ENV_PATH"
 echo "⚠️  Google Places API 키를 실제 키로 변경해주세요!"
 echo "   파일 위치: $ENV_PATH"
+

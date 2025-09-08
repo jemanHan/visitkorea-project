@@ -23,6 +23,9 @@ JWT_SECRET="your_jwt_secret_here"
 
 # CORS
 CORS_ORIGIN="http://localhost:3000"
+
+# Cache TTL (7 days)
+DETAIL_TTL_MS=604800000
 "@
 
 # 디렉토리가 없으면 생성
@@ -37,3 +40,4 @@ Set-Content -Path $envPath -Value $envContent -Encoding UTF8
 Write-Host "✅ 환경변수 파일이 생성되었습니다: $envPath" -ForegroundColor Green
 Write-Host "⚠️  Google Places API 키를 실제 키로 변경해주세요!" -ForegroundColor Yellow
 Write-Host "   파일 위치: $envPath" -ForegroundColor Cyan
+
