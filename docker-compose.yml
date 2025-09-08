@@ -19,11 +19,11 @@ services:
     networks:
       - visitkorea-network
 
-  # Backend API Server
-  backend:
-    build:
-      context: ./apps/backend
-      dockerfile: Dockerfile
+      # Backend API Server
+      backend:
+        build:
+          context: .
+          dockerfile: apps/backend/Dockerfile
     container_name: vk-backend-${USER:-default}
     restart: unless-stopped
     env_file:
@@ -47,11 +47,11 @@ services:
     networks:
       - visitkorea-network
 
-  # Prisma Studio (개발용)
-  prisma-studio:
-    build:
-      context: ./apps/backend
-      dockerfile: Dockerfile
+      # Prisma Studio (개발용)
+      prisma-studio:
+        build:
+          context: .
+          dockerfile: apps/backend/Dockerfile
     container_name: vk-prisma-studio-${USER:-default}
     restart: unless-stopped
     env_file:
