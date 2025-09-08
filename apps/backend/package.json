@@ -5,7 +5,7 @@
   "type": "module",
   "main": "dist/index.mjs",
   "scripts": {
-    "dev": "../../node_modules/.bin/tsx watch src/local.ts",
+    "dev": "tsx watch src/local.ts",
     "build": "tsc -b",
     "start": "node dist/local.mjs"
   },

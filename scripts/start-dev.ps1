@@ -42,3 +42,6 @@ Write-Host "📍 Backend API: http://localhost:3002" -ForegroundColor Cyan
 Write-Host "📍 Health Check: http://localhost:3002/health" -ForegroundColor Cyan
 Write-Host ""
 Write-Host "💡 로그 확인: docker compose logs -f backend" -ForegroundColor Yellow
+
+# 최종 알림
+Write-Host "✅ 백엔드 및 DB 서비스가 켜져있습니다!" -ForegroundColor Green

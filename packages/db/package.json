@@ -9,9 +9,9 @@
     "prisma/schema.prisma"
   ],
   "scripts": {
-    "generate": "prisma generate",
+    "generate": "prisma generate && node -e \"console.log('Prisma generate 켜져있습니다!')\"",
     "migrate:dev": "prisma migrate dev --name init",
-    "studio": "prisma studio",
+    "studio": "node -e \"console.log('Prisma Studio 켜져있습니다!')\" && prisma studio",
     "build": "tsc -p tsconfig.json"
   },
   "dependencies": {
