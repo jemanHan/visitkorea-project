@@ -25,8 +25,8 @@ docker system prune -f
 docker compose up -d db
 
 # 2) Prisma 준비
-docker compose run --rm backend npx prisma generate --schema=./schema.prisma
-docker compose run --rm backend npx prisma migrate deploy --schema=./schema.prisma
+docker compose run --rm backend npx prisma generate
+docker compose run --rm backend npx prisma migrate deploy
 
 # 3) 앱 띄우기
 docker compose up -d backend
@@ -55,7 +55,7 @@ docker compose --profile dev up -d prisma-studio
 ### **❓ 문제가 생기면**
 - **포트 충돌**: `docker compose down` 후 재시작
 - **컨테이너 이름 충돌**: `docker compose down --volumes --rmi all` 후 재시작
-- **Prisma 오류**: `docker compose run --rm backend npx prisma generate --schema=./schema.prisma` 실행
+- **Prisma 오류**: `docker compose run --rm backend npx prisma generate` 실행
 - **Prisma Studio 환경변수 오류**: 아래 "로컬 실행 방법" 참고
 - **기존 Docker 정리**: [docs/DOCKER_CLEANUP_GUIDE.md](docs/DOCKER_CLEANUP_GUIDE.md) 참고
 - **자세한 가이드**: [docs/README.md](docs/README.md) 참고

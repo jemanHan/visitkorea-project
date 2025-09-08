@@ -63,7 +63,7 @@ services:
         condition: service_healthy
     ports:
       - "5555:5555"
-    command: npx prisma studio --schema=./schema.prisma --hostname 0.0.0.0
+    command: npx prisma studio --hostname 0.0.0.0
     networks:
       - visitkorea-network
     profiles:

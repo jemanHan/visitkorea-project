@@ -25,5 +25,8 @@ RUN npm run build
 # Prisma 스키마를 백엔드 디렉토리로 복사 (Prisma 명령어 실행을 위해)
 RUN cp /app/packages/db/prisma/schema.prisma ./schema.prisma
 
+# Prisma 스키마를 기본 위치에도 복사 (Prisma가 자동으로 찾을 수 있도록)
+RUN mkdir -p ./prisma && cp /app/packages/db/prisma/schema.prisma ./prisma/schema.prisma
+
 EXPOSE 3002
 CMD ["npm", "run", "start"]
