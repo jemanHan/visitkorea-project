@@ -33,8 +33,8 @@
 ### 1. 프로젝트 클론
 ```bash
 # Git에서 프로젝트 클론
-git clone <repository-url>
-cd visitkorea-project
+git clone https://github.com/jemanHan/visitkorea-project-was.git
+cd visitkorea-project-was
 ```
 
 ### 2. 의존성 설치
@@ -44,11 +44,27 @@ npm install
 
 ### 3. 환경변수 설정
 ```bash
-# 환경변수 템플릿을 백엔드에 복사
-cp config/.env.example apps/backend/.env.local
+# apps/backend/.env 파일이 이미 설정되어 있습니다
+# 필요시 Google Places API 키만 수정하세요
+cat apps/backend/.env
+```
 
-# 🔑 Google Places API 키만 수정 (필수)
-vim apps/backend/.env.local
+### 4. 🔥 중요 - 기존 Docker 환경 정리 (충돌 방지)
+```bash
+# 기존 Docker 컨테이너, 볼륨, 네트워크 모두 정리
+docker compose down --volumes --rmi all
+
+# 사용하지 않는 Docker 리소스 정리
+docker system prune -f
+
+# 정리 확인
+docker ps -a | grep -E "(vk-|visitkorea)" || echo "✅ 모든 컨테이너 정리 완료"
+```
+
+### 5. 🔑 Google Places API 키 설정 (필수)
+```bash
+# Google Places API 키 수정
+vim apps/backend/.env
 # GOOGLE_PLACES_BACKEND_KEY=your_actual_api_key_here
 ```
 
@@ -67,30 +83,25 @@ vim apps/backend/.env.local
 - **데이터베이스**: 모든 팀원이 동일한 DB 사용
 - **포트, 캐시 등**: 기본값 그대로 사용
 
-### 4. 서비스 시작 (두 가지 방법 중 선택)
+### 6. 서비스 시작 (Docker Compose 권장)
 
 #### **방법 A: Docker Compose (권장) - 모든 것이 자동으로 시작됨**
 ```bash
-# 개발 환경 (Prisma Studio 포함)
-npm run dev:docker
+# 1) PostgreSQL DB 시작
+docker compose up -d db
 
-# 또는 운영 환경 (백엔드만)
-npm run start:docker
+# 2) Prisma 스키마 동기화
+docker compose run --rm backend npx prisma generate
+docker compose run --rm backend npx prisma migrate deploy
+
+# 3) 백엔드 서버 시작
+docker compose up -d backend
+
+# 4) Prisma Studio 시작 (개발용)
+docker compose --profile dev up -d prisma-studio
 ```
 
-#### **방법 B: 기존 방식 (PostgreSQL만 Docker 사용)**
-```bash
-# PostgreSQL 컨테이너 시작 + 백엔드 시작
-npm run dev:full
-```
-
-#### **방법 C: 완전 로컬 (Docker 사용 안함)**
-```bash
-# PostgreSQL 로컬 설치 후
-npm run dev
-```
-
-### 5. 서비스 확인
+### 7. 서비스 확인
 ```bash
 # 백엔드 API 확인
 curl http://localhost:3002/health

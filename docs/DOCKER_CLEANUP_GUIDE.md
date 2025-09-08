@@ -154,7 +154,17 @@ ls -la apps/backend/.env*
 cp apps/backend/.env.local apps/backend/.env.local.backup 2>/dev/null || true
 ```
 
-### **2. 새로운 설정으로 시작**
+### **2. 🔥 중요 - 빌드 전 초기화 (팀원 필수)**
+```bash
+# 매번 빌드 전에 실행하여 충돌 방지
+docker compose down --volumes --rmi all
+docker system prune -f
+
+# 정리 확인
+docker ps -a | grep -E "(vk-|visitkorea)" || echo "✅ 모든 컨테이너 정리 완료"
+```
+
+### **3. 새로운 설정으로 시작**
 ```bash
 # 1) DB 먼저 시작
 docker compose up -d db
@@ -277,8 +287,11 @@ cat > cleanup.sh << 'EOF'
 #!/bin/bash
 echo "🧹 Docker & DB 정리 시작..."
 
-# 서비스 중지
-docker compose down
+# 서비스 중지 및 완전 정리
+docker compose down --volumes --rmi all
+
+# 사용하지 않는 Docker 리소스 정리
+docker system prune -f
 
 # 컨테이너 정리
 docker stop $(docker ps -q --filter "name=vk-") 2>/dev/null || true

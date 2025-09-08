@@ -16,7 +16,11 @@ npm install
 # apps/backend/.env 파일이 이미 설정되어 있습니다
 # 필요시 Google Places API 키만 수정하세요
 
-# 4. Docker로 전체 환경 시작
+# 4. 🔥 중요: 기존 Docker 환경 정리 (충돌 방지)
+docker compose down --volumes --rmi all
+docker system prune -f
+
+# 5. Docker로 전체 환경 시작
 # 1) DB 먼저
 docker compose up -d db
 
@@ -50,6 +54,7 @@ docker compose --profile dev up -d prisma-studio
 
 ### **❓ 문제가 생기면**
 - **포트 충돌**: `docker compose down` 후 재시작
+- **컨테이너 이름 충돌**: `docker compose down --volumes --rmi all` 후 재시작
 - **Prisma 오류**: `docker compose run --rm backend npx prisma generate` 실행
 - **Prisma Studio 환경변수 오류**: 아래 "로컬 실행 방법" 참고
 - **기존 Docker 정리**: [docs/DOCKER_CLEANUP_GUIDE.md](docs/DOCKER_CLEANUP_GUIDE.md) 참고
