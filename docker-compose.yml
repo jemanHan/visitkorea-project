@@ -41,6 +41,7 @@ services:
     # 개발 모드: 코드 핫리로드용 바인드 마운트
     volumes:
       - ./apps/backend:/app
+      - ./packages:/app/packages
       - /app/node_modules
     networks:
       - visitkorea-network
@@ -61,7 +62,7 @@ services:
         condition: service_healthy
     ports:
       - "5555:5555"
-    command: npx prisma studio --hostname 0.0.0.0
+    command: npx prisma studio --hostname 0.0.0.0 --schema packages/db/prisma/schema.prisma
     networks:
       - visitkorea-network
     profiles:
