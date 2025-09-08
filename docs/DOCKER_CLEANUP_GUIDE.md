@@ -170,8 +170,8 @@ docker ps -a | grep -E "(vk-|visitkorea)" || echo "✅ 모든 컨테이너 정�
 docker compose up -d db
 
 # 2) Prisma 준비
-docker compose run --rm backend npx prisma generate --schema=/app/packages/db/prisma/schema.prisma
-docker compose run --rm backend npx prisma migrate deploy --schema=/app/packages/db/prisma/schema.prisma
+docker compose run --rm backend npx prisma generate --schema=./schema.prisma
+docker compose run --rm backend npx prisma migrate deploy --schema=./schema.prisma
 
 # 3) 앱 띄우기
 docker compose up -d backend

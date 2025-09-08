@@ -22,5 +22,8 @@ COPY apps/backend/ ./apps/backend/
 WORKDIR /app/apps/backend
 RUN npm run build
 
+# Prisma 스키마를 백엔드 디렉토리로 복사 (Prisma 명령어 실행을 위해)
+RUN cp /app/packages/db/prisma/schema.prisma ./schema.prisma
+
 EXPOSE 3002
 CMD ["npm", "run", "start"]
