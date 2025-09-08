@@ -91,8 +91,8 @@ vim apps/backend/.env
 docker compose up -d db
 
 # 2) Prisma 스키마 동기화
-docker compose run --rm backend npx prisma generate
-docker compose run --rm backend npx prisma migrate deploy
+docker compose run --rm backend npx prisma generate --schema=/app/packages/db/prisma/schema.prisma
+docker compose run --rm backend npx prisma migrate deploy --schema=/app/packages/db/prisma/schema.prisma
 
 # 3) 백엔드 서버 시작
 docker compose up -d backend
