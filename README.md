@@ -31,7 +31,7 @@ npm install
 **2. 환경변수 파일 생성**
 ```bash
 # Windows
-powershell -ExecutionPolicy Bypass -File scripts\setup-env.ps1
+powershell -ExecutionPolicy Bypass -File ./scripts/setup-env.ps1
 
 # Linux/Mac
 chmod +x scripts/setup-env.sh
@@ -97,7 +97,7 @@ docker compose run --rm backend npx prisma migrate deploy --schema packages/db/p
 ```bash
 # 환경변수 파일 재생성
 # Windows
-powershell -ExecutionPolicy Bypass -File scripts\setup-env.ps1
+powershell -ExecutionPolicy Bypass -File ./scripts/setup-env.ps1
 
 # Linux/Mac
 ./scripts/setup-env.sh
