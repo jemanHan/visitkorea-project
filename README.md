@@ -60,19 +60,31 @@ docker compose --profile dev up -d prisma-studio
 - **기존 Docker 정리**: [docs/DOCKER_CLEANUP_GUIDE.md](docs/DOCKER_CLEANUP_GUIDE.md) 참고
 - **자세한 가이드**: [docs/README.md](docs/README.md) 참고
 
-### **🔧 로컬에서 직접 실행하는 방법 (Docker 없이)**
+### **🔧 로컬에서 직접 실행하는 방법 (Docker 없이) - 권장!**
 
 ```bash
-# 1. 환경변수 설정
-export DATABASE_URL="postgresql://vk:vk@localhost:5432/vk?schema=public"
+# 1. 의존성 설치
+npm install
 
-# 2. Prisma Studio 시작
-cd apps/backend
-npx prisma studio --schema=../../packages/db/prisma/schema.prisma
+# 2. Prisma 클라이언트 생성 (필수!)
+npx prisma generate --schema packages/db/prisma/schema.prisma
 
-# 3. 백엔드 서버 시작 (별도 터미널)
+# 3. 환경변수 설정
+cp config/.env.example apps/backend/.env.local
+
+# 4. 백엔드 디렉토리로 이동
 cd apps/backend
+
+# 5. 백엔드 서버 시작
 npm run dev
+```
+
+**실행 결과:**
+```
+✔ Generated Prisma Client (v5.22.0) to .\node_modules\@prisma\client in 92ms
+[dotenv@17.2.1] injecting env (9) from .env.local
+{"level":30,"time":1757307024326,"pid":41496,"hostname":"JM","msg":"Server listening at http://0.0.0.0:3002"}
+backend listening on http://localhost:3002
 ```
 
 **주의**: 로컬 PostgreSQL이 실행 중이어야 합니다.
