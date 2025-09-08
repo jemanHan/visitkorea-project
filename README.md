@@ -56,6 +56,8 @@ docker compose --profile dev up -d prisma-studio
 - **포트 충돌**: `docker compose down` 후 재시작
 - **컨테이너 이름 충돌**: `docker compose down --volumes --rmi all` 후 재시작
 - **Prisma 오류**: `docker compose run --rm backend npx prisma generate` 실행
+- **UserLike 테이블 없음**: `npx prisma migrate deploy --schema packages/db/prisma/schema.prisma` 실행
+- **환경변수 오류**: `export DATABASE_URL="postgresql://vk:vk@localhost:5432/vk?schema=public"` 설정
 - **Prisma Studio 환경변수 오류**: 아래 "로컬 실행 방법" 참고
 - **기존 Docker 정리**: [docs/DOCKER_CLEANUP_GUIDE.md](docs/DOCKER_CLEANUP_GUIDE.md) 참고
 - **자세한 가이드**: [docs/README.md](docs/README.md) 참고
@@ -66,22 +68,32 @@ docker compose --profile dev up -d prisma-studio
 # 1. 의존성 설치
 npm install
 
-# 2. Prisma 클라이언트 생성 (필수!)
+# 2. 환경변수 설정 (필수!)
+export DATABASE_URL="postgresql://vk:vk@localhost:5432/vk?schema=public"
+
+# 3. Prisma 클라이언트 생성 (필수!)
 npx prisma generate --schema packages/db/prisma/schema.prisma
 
-# 3. 환경변수 설정
+# 4. 데이터베이스 마이그레이션 실행 (필수!)
+npx prisma migrate deploy --schema packages/db/prisma/schema.prisma
+
+# 5. 환경변수 파일 설정
 cp config/.env.example apps/backend/.env.local
 
-# 4. 백엔드 디렉토리로 이동
+# 6. 백엔드 디렉토리로 이동
 cd apps/backend
 
-# 5. 백엔드 서버 시작
+# 7. 백엔드 서버 시작
 npm run dev
 ```
 
 **실행 결과:**
 ```
 ✔ Generated Prisma Client (v5.22.0) to .\node_modules\@prisma\client in 92ms
+2 migrations found in prisma/migrations
+Applying migration `20250828074306_init`
+Applying migration `20250828082745_init`
+All migrations have been successfully applied.
 [dotenv@17.2.1] injecting env (9) from .env.local
 {"level":30,"time":1757307024326,"pid":41496,"hostname":"JM","msg":"Server listening at http://0.0.0.0:3002"}
 backend listening on http://localhost:3002
