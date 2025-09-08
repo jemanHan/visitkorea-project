@@ -202,7 +202,7 @@ docker network ls | grep visitkorea || echo "✅ 모든 네트워크 정리 완�
 docker compose ps
 
 # 데이터베이스 연결 확인
-docker compose exec db psql -U vk -d visitkorea -c "\dt"
+docker compose exec db psql -U vk -d vk -c "\dt"
 
 # 백엔드 API 확인
 curl http://localhost:3002/health
